@@ -11,7 +11,7 @@ CPPFLAGS += -DLOKI_FUNCTOR_IS_NOT_A_SMALLOBJECT
 .PHONY: all clean
 all: $(BIN1)
 
-$(BIN1): $(OBJ1) $(LIB1) 
+$(BIN1): $(OBJ1) $(LIB1)
 	$(CXX) $(CXXFLAGS) -L. $(LDFLAGS) $(CPPFLAGS) -o $@ $(OBJ1) $(LDLIBS) -lfoo
 
 $(LIB1): $(OBJ2)
@@ -22,5 +22,8 @@ clean: cleandeps
 	$(RM) $(OBJ1)
 	$(RM) $(LIB1)
 	$(RM) $(OBJ2)
+
+test: $(BIN1)
+	$(WINE) ./$(BIN1)
 
 include ../../Makefile.deps

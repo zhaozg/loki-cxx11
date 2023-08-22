@@ -21,6 +21,9 @@ test/SmallObj/SmallObjBench
 test/SmallObj/SmallObjSingleton
 test/SmartPtr/main
 test/Visitor/main
+test/CheckReturn/main
+test/Checker/main
+test/SafeBits/SafeBitTest
 
 # Prerequisites
 *.d

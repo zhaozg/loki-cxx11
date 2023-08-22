@@ -1,9 +1,8 @@
 include ../Makefile.common
 
-BIN := main$(BIN_SUFFIX)
-SRC := main.cpp
+BIN := SafeBitTest$(BIN_SUFFIX)
+SRC := SafeBitTest.cpp
 OBJ := $(SRC:.cpp=.o)
-CXXFLAGS := $(CXXWARNFLAGS) -g -fexpensive-optimizations -O3
 
 .PHONY: all clean
 all: $(BIN)

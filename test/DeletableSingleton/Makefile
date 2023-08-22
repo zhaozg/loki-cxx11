@@ -13,4 +13,7 @@ clean: cleandeps
 $(BIN): $(OBJ)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
+test: $(BIN)
+	$(WINE) ./$(BIN)
+
 include ../../Makefile.deps

@@ -4,9 +4,9 @@
 // Copyright (c) 2008 Richard Sposato
 // The copyright on this file is protected under the terms of the MIT license.
 //
-// Permission to use, copy, modify, distribute and sell this software for any 
-// purpose is hereby granted without fee, provided that the above copyright 
-// notice appear in all copies and that both that copyright notice and this 
+// Permission to use, copy, modify, distribute and sell this software for any
+// purpose is hereby granted without fee, provided that the above copyright
+// notice appear in all copies and that both that copyright notice and this
 // permission notice appear in supporting documentation.
 //
 // The author makes no representations about the suitability of this software
@@ -22,11 +22,14 @@
 #include "MultiThreadTests.hpp"
 
 #include <assert.h>
+#include <sys/_types/_intptr_t.h>
+#if defined(_WIN32)
 #include <process.h>
+#endif
 #include <stdlib.h>
 #include <time.h>
 
-#include <SafeFormat.h>
+#include <loki/SafeFormat.h>
 
 #include "ThreadPool.hpp"
 #include "Thing.hpp"
@@ -34,7 +37,6 @@
 
 // define nullptr even though new compilers will have this keyword just so we
 // have a consistent and easy way of identifying which uses of 0 mean null.
-#define nullptr 0
 
 
 using namespace ::Loki;
@@ -90,7 +92,9 @@ using namespace Loki;
 
 void * PrintSafeThread( void * p )
 {
-    unsigned int value = reinterpret_cast< unsigned int >( p );
+    unsigned int value = static_cast< unsigned int >(
+                         reinterpret_cast< intptr_t >( p ) );
+
     volatile Thing & thing = Thing::GetIt();
     try
     {
@@ -120,7 +124,8 @@ void * PrintSafeThread( void * p )
 
 void * PrintUnsafeThread( void * p )
 {
-    unsigned int value = reinterpret_cast< unsigned int >( p );
+    unsigned int value = static_cast< unsigned int >(
+                         reinterpret_cast< intptr_t >( p ) );
     Thing & thing = const_cast< Thing & >( Thing::GetIt() );
     try
     {
@@ -178,7 +183,8 @@ void * ValueSafeThread( void * p )
 
     const unsigned int testCount = 8;
     unsigned int fails = 0;
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     volatile Thing & thing = Thing::GetIt();
     try
     {
@@ -211,7 +217,8 @@ void * ValueUnsafeThread( void * p )
 
     const unsigned int testCount = 8;
     unsigned int fails = 0;
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     // cast away volatility so the mutex doesn't get used by volatile functions.
     Thing & thing = const_cast< Thing & >( Thing::GetIt() );
     try
@@ -268,8 +275,8 @@ void MultiThreadSimpleTest( void )
 
 void * TryLockThread( void * p )
 {
-
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     volatile Thing & thing = Thing::GetIt();
     volatile SleepMutex & mutex = thing.GetMutex();
     assert( mutex.IsLockedByAnotherThread() );
@@ -509,8 +516,8 @@ void SingleThreadComplexMultiLockTest( bool doSetup )
 
 void * MultiLockSafeThread( void * p )
 {
-
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     LevelMutexInfo::MutexContainer mutexes( thingCount );
     volatile Thing * thing = nullptr;
     unsigned int jj = 0;
@@ -584,8 +591,8 @@ void * MultiLockSafeThread( void * p )
 
 void * MultiLockUnsafeThread( void * p )
 {
-
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     Thing * thing = nullptr;
     unsigned int jj = 0;
     unsigned int tests = 0;
@@ -680,7 +687,8 @@ void MultiThreadMultiLockTest( void )
 
 void * MultiLockRandomSafeThread( void * p )
 {
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     unsigned int testCount = 0;
     unsigned int failCount = 0;
     volatile Thing * thing = nullptr;
@@ -750,7 +758,8 @@ void * MultiLockRandomSafeThread( void * p )
 
 void * MultiLockRandomUnsafeThread( void * p )
 {
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     unsigned int testCount = 0;
     unsigned int failCount = 0;
     Thing * thing = nullptr;
@@ -842,8 +851,8 @@ void MultiThreadRandomMultiLockTest( void )
 
 void * SafeHierarchyTest( void * p )
 {
-
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     volatile LevelThing * thing = nullptr;
     unsigned int testCount = 0;
     unsigned int failCount = 0;
@@ -891,8 +900,8 @@ void * SafeHierarchyTest( void * p )
 
 void * UnsafeHierarchyTest( void * p )
 {
-
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     LevelThing * thing = nullptr;
     unsigned int testCount = 0;
     unsigned int failCount = 0;
@@ -970,8 +979,8 @@ void MultiThreadHierarchySingleLockTest( void )
 
 void * SafeHierarchyMultiLockTest( void * p )
 {
-
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     unsigned int testCount = 0;
     unsigned int failCount = 0;
     unsigned int totalTestCount = 0;
@@ -1021,8 +1030,8 @@ void * SafeHierarchyMultiLockTest( void * p )
 
 void * UnsafeHierarchyMultiLockTest( void * p )
 {
-
-    const unsigned int value = reinterpret_cast< unsigned int >( p );
+    const unsigned int value = static_cast< unsigned int >(
+                               reinterpret_cast< intptr_t >( p ) );
     unsigned int testCount = 0;
     unsigned int failCount = 0;
     unsigned int totalTestCount = 0;

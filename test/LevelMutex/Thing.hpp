@@ -4,9 +4,9 @@
 // Copyright (c) 2008 Richard Sposato
 // The copyright on this file is protected under the terms of the MIT license.
 //
-// Permission to use, copy, modify, distribute and sell this software for any 
-// purpose is hereby granted without fee, provided that the above copyright 
-// notice appear in all copies and that both that copyright notice and this 
+// Permission to use, copy, modify, distribute and sell this software for any
+// purpose is hereby granted without fee, provided that the above copyright
+// notice appear in all copies and that both that copyright notice and this
 // permission notice appear in supporting documentation.
 //
 // The author makes no representations about the suitability of this software
@@ -22,8 +22,8 @@
 #ifndef LOKI_TEST_LEVEL_MUTEX_THING_H
 #define LOKI_TEST_LEVEL_MUTEX_THING_H
 
-#include <LevelMutex.h>
-#include <Allocator.h>
+#include <loki/LevelMutex.h>
+#include <loki/Allocator.h>
 
 #include <vector>
 

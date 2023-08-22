@@ -1,9 +1,9 @@
 include ../Makefile.common
 
 BIN := main$(BIN_SUFFIX)
-SRC := main.cpp
+SRC := main.cpp MultiThreadTests.cpp Thing.cpp ThreadPool.cpp
 OBJ := $(SRC:.cpp=.o)
-CXXFLAGS := $(CXXWARNFLAGS) -g -fexpensive-optimizations -O3
+LDLIBS += -lpthread
 
 .PHONY: all clean
 all: $(BIN)
@@ -15,6 +15,6 @@ $(BIN): $(OBJ)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 test: $(BIN)
-	$(WINE) ./$(BIN)
+	$(WIN) ./$(BIN)
 
 include ../../Makefile.deps

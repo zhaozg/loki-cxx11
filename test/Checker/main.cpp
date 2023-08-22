@@ -352,7 +352,7 @@ void ThrowTest( void )
 
 // ----------------------------------------------------------------------------
 
-int main( unsigned int argc, const char * const argv[] )
+int main( int argc, const char * const argv[] )
 {
 
     try

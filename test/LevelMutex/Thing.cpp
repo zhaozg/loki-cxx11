@@ -4,9 +4,9 @@
 // Copyright (c) 2008 Richard Sposato
 // The copyright on this file is protected under the terms of the MIT license.
 //
-// Permission to use, copy, modify, distribute and sell this software for any 
-// purpose is hereby granted without fee, provided that the above copyright 
-// notice appear in all copies and that both that copyright notice and this 
+// Permission to use, copy, modify, distribute and sell this software for any
+// purpose is hereby granted without fee, provided that the above copyright
+// notice appear in all copies and that both that copyright notice and this
 // permission notice appear in supporting documentation.
 //
 // The author makes no representations about the suitability of this software
@@ -25,8 +25,8 @@
 #include <algorithm>
 #include <functional>
 
-#include <SafeFormat.h>
-#include <LockingPtr.h>
+#include <loki/SafeFormat.h>
+#include <loki/LockingPtr.h>
 
 using namespace ::Loki;
 
@@ -265,7 +265,7 @@ void GoToSleep( unsigned int milliSeconds )
     unsigned int seconds = milliSeconds / 1000;
     if ( 0 == seconds )
         seconds = 1;
-    ::_sleep( seconds );
+    ::sleep( seconds );
 #else
     #error "Find out if your compiler supports a sleep command and add it here."
 #endif

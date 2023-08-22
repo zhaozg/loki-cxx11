@@ -22,4 +22,8 @@ $(BIN1): $(OBJ1)
 $(BIN2): $(OBJ2)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
+test: $(BIN1) $(BIN2)
+	$(WINE) ./$(BIN1)
+	$(WINE) ./$(BIN2)
+
 include ../../Makefile.deps
